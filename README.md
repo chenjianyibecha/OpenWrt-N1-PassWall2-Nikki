@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">本项目用于编译斐讯 N1 使用的 OpenWrt , ImmortalWrt , LEDE , iStoreOS 固件</p>
-    
+
 <p align="center">
   <a href="https://github.com/ffuqiangg/build_openwrt/stargazers"><img src="https://img.shields.io/github/stars/ffuqiangg/build_openwrt?color=ffcb47&labelColor=black&logo=github&label=Stars" /></a>
   <a href="https://github.com/ffuqiangg/build_openwrt/releases"><img src="https://img.shields.io/github/downloads/ffuqiangg/build_openwrt/total?color=2c9678&labelColor=black&logo=github&label=Downloads" /></a>
