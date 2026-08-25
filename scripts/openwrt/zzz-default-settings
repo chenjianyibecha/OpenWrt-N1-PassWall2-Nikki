@@ -50,15 +50,8 @@ uci commit amlogic
 
 # --- 启用 KMS 服务器 ---
 uci batch << EOI
-set vlmcsd.config.enabled='1'
-set vlmcsd.config.auto_activate='1'
-set vlmcsd.config.internet_access='1'
 EOI
-uci commit vlmcsd
 
-# --- MosDNS ---
-uci set mosdns.config.log_level='error'
-uci commit mosdns
 
 # --- Feeds 更换镜像源 ---
 sed -i 's#downloads.openwrt.org#mirror.nju.edu.cn/openwrt#g' /etc/apk/repositories.d/distfeeds.list
@@ -69,8 +62,6 @@ uci set network.globals.steering_flows='256'
 uci commit network
 
 # --- 通用即插即用 ---
-uci set upnpd.config.enabled='1'
-uci commit upnpd
 
 # --- bandix ---
 uci set bandix.general.log_level='error'
@@ -81,12 +72,10 @@ uci set system.@system[0].cronloglevel="9"
 uci commit system
 /etc/init.d/cron restart
 
-# --- V2rayA ---
 [ -d /usr/share/xray ] || mkdir -p /usr/share/xray
 [ -f /usr/share/v2ray/geoip.dat ] && ln -sf /usr/share/v2ray/geoip.dat /usr/share/xray/geoip.dat
 [ -f /usr/share/v2ray/geosite.dat ] && ln -sf /usr/share/v2ray/geosite.dat /usr/share/xray/geosite.dat
 
-# --- Podman ---
 sed -i '/firewall_driver/c\firewall_driver = "nftables"' /etc/containers/containers.conf
 sed -i '/^graphroot/c\graphroot = "/mnt/mmcblk2p4/containers/storage"' /etc/containers/storage.conf
 
@@ -104,8 +93,6 @@ opkg flag hold dnsmasq-full
 /etc/init.d/ttyd stop
 /etc/init.d/sing-box disable 2>/dev/null
 /etc/init.d/sing-box stop
-/etc/init.d/podman disable 2>/dev/null
-/etc/init.d/podman stop
 
 # --- openwr_release 写入编译日期 ---
 sed -i '/BUILD_DATE/d' /etc/openwrt_release

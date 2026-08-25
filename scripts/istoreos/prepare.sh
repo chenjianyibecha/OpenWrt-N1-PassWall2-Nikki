@@ -182,41 +182,30 @@ sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' ./package/add/luci-app-arpbind/Makef
 p "替换 sing-box"
 rm -rf ./feeds/packages/net/sing-box
 cp -rf ${otherdir}/imm_pkg_ma/net/sing-box ./feeds/packages/net/sing-box
-p "v2rayA"
+p "v2rayA removed for slim Services build"
 rm -rf ./feeds/luci/applications/luci-app-v2raya ./feeds/packages/net/v2raya
-cp -rf ${otherdir}/imm_luci_ma/applications/luci-app-v2raya ./feeds/luci/applications/luci-app-v2raya
-cp -rf ${otherdir}/imm_pkg_ma/net/v2raya ./feeds/packages/net/v2raya
 p "Passwall & OpenWrt-momo"
 rm -rf feeds/packages/net/{shadowsocks-libev,v2ray-core,xray-core}
 cp -rf ${otherdir}/openwrt-add/openwrt_helloworld ./package/add/
-rm -rf ./package/add/openwrt_helloworld/{v2ray-geodata,luci-app-ssr-plus}
+rm -rf ./package/add/openwrt_helloworld/{v2ray-geodata,luci-app-ssr-plus,luci-app-passwall}
 sed -i '/select PACKAGE_geoview/{n;s/default n/default y/;}' ./package/add/openwrt_helloworld/luci-app-passwall/Makefile
 sed -i 's, +libopenssl-legacy,,g' ./package/add/openwrt_helloworld/shadowsocksr-libev/Makefile
 sed -i '/#dde2ff/d;/#2c323c/d' ./package/add/openwrt_helloworld/luci-app-passwall/luasrc/view/passwall/global/status.htm
 p "OpenWrt-nikki"
-rm -rf ./package/add/openwrt_helloworld/{mihomo-alpha,mihomo-meta}
+rm -rf ./package/add/openwrt_helloworld/{mihomo-alpha,mihomo-meta,luci-app-passwall}
 cp -rf ${otherdir}/openwrt-add/OpenWrt-mihomo ./package/add/luci-app-nikki
 rm -rf ./package/add/luci-app-nikki/mihomo-alpha
 sed -i '/mihomo-alpha/d' ./package/add/luci-app-nikki/mihomo-meta/Makefile
-p "HomeProxy"
-cp -rf ${otherdir}/openwrt-add/homeproxy ./package/add/luci-app-homeproxy
+p "HomeProxy removed for slim Services build"
+rm -rf ./package/add/luci-app-homeproxy ./feeds/luci/applications/luci-app-homeproxy
 
-p "MosDNS"
-rm -rf ./feeds/packages/net/v2ray-geodata
-cp -rf ${otherdir}/openwrt-add/luci-app-mosdns ./package/add/luci-app-mosdns
-cp -rf ${otherdir}/v2ray_geodata ./package/add/v2ray-geodata
+p "MosDNS removed for slim Services build"
+rm -rf ./package/add/luci-app-mosdns ./feeds/luci/applications/luci-app-mosdns ./feeds/packages/net/mosdns
 
-p "Podman"
-cp -rf ${otherdir}/podman ./package/luci-app-podman
-sed -i 's#admin/#&services/#g' ./package/luci-app-podman/htdocs/luci-static/resources/podman/model/{Pod.js,Image.js,Model.js,Container.js}
-sed -i 's#admin/#&services/#g' ./package/luci-app-podman/htdocs/luci-static/resources/view/podman/{overview.js,container.js,pod.js,pod-tab/info.js}
-sed -i 's#admin/#&services/#g' ./package/luci-app-podman/root/usr/share/luci/menu.d/luci-app-podman.json
-rm -rf ./feeds/packages/utils/podman
-cp -rf ${otherdir}/imm_pkg_ma/utils/podman ./feeds/packages/utils/podman
-p "Diskman 磁盘管理"
-cp -rf ${otherdir}/imm_luci_ma/applications/luci-app-diskman ./package/add/luci-app-diskman
-sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' ./package/add/luci-app-diskman/Makefile
-
+p "Podman removed for slim Services build"
+rm -rf ./package/luci-app-podman ./package/add/luci-app-podman ./feeds/packages/utils/podman
+p "Diskman removed for slim Services build"
+rm -rf ./package/add/luci-app-diskman
 p "Curl"
 rm -rf ./feeds/packages/net/curl
 cp -rf ${otherdir}/imm_pkg_ma/net/curl ./feeds/packages/net/curl
@@ -225,18 +214,15 @@ p "Cpufreq"
 cp -rf ${otherdir}/imm_luci_ma/applications/luci-app-cpufreq ./package/add/luci-app-cpufreq
 sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' ./package/add/luci-app-cpufreq/Makefile
 cp -rf ${otherdir}/immortalwrt/package/emortal/cpufreq ./package/add/cpufreq
-p "Filebrowser 文件管理器"
-cp -rf ${otherdir}/openwrt-add/openwrt_pkgs/{filebrowser,luci-app-filebrowser-go} ./package/add/
-p "KMS 服务器"
-cp -rf ${otherdir}/imm_luci_ma/applications/luci-app-vlmcsd ./package/add/
-sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' ./package/add/luci-app-vlmcsd/Makefile
-cp -rf ${otherdir}/imm_pkg_ma/net/vlmcsd ./package/add/
-
+p "Filebrowser removed for slim Services build"
+rm -rf ./package/add/filebrowser ./package/add/luci-app-filebrowser-go
+p "KMS/vlmcsd removed for slim Services build"
+rm -rf ./package/add/luci-app-vlmcsd ./package/add/vlmcsd
 p "Nlbw 带宽监控"
 sed -i 's/services/network/g' ./feeds/luci/applications/luci-app-nlbwmon/root/usr/share/luci/menu.d/luci-app-nlbwmon.json
 sed -i 's/services/network/g' ./feeds/luci/applications/luci-app-nlbwmon/htdocs/luci-static/resources/view/nlbw/config.js
-p "Bandix 流量监控"
-cp -rf ${otherdir}/openwrt-add/{openwrt-bandix,luci-app-bandix} ./package/add/
+p "Bandix removed for slim Services build"
+rm -rf ./package/add/openwrt-bandix ./package/add/luci-app-bandix
 p "终端 TTYD"
 sed -i 's/services/system/g' ./feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
 p "iStore"
@@ -261,3 +247,8 @@ find ./ -name *.orig | xargs rm -f
 find ./ -name *.rej | xargs rm -f
 
 p "容器内脚本结束"
+
+# Final safety cleanup: no unused service plugin sources in slim Services build.
+rm -rf ./package/add/{luci-app-homeproxy,luci-app-momo,luci-app-mosdns,luci-app-samba4,luci-app-v2raya,luci-app-vlmcsd,luci-app-filebrowser-go,luci-app-bandix,luci-app-podman,luci-app-diskman}
+rm -rf ./feeds/luci/applications/{luci-app-openclash,luci-app-ssr-plus,luci-app-samba4,luci-app-zerotier,luci-app-openvpn,luci-app-wireguard,luci-app-upnp,luci-app-v2raya,luci-app-mosdns,luci-app-ddns,luci-app-nlbwmon}
+rm -rf ./feeds/packages/net/{openvpn,zerotier,mosdns,v2raya,samba4,ksmbd,nfs-kernel-server,wireguard-tools,strongswan}

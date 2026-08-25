@@ -55,6 +55,9 @@ jobs:
           make defconfig
         '
 
+    - name: 验证精简服务插件策略
+      run: bash scripts/verify-slim-services.sh
+
     - name: 压缩编译目录
       run: |
         d '
