@@ -4,7 +4,8 @@
 #
 
 # --- 自动语言 ---
-uci set luci.main.lang=auto
+uci set luci.main.lang='zh_cn'
+uci set luci.main.mediaurlbase='/luci-static/argon'
 uci commit luci
 
 # --- 自动挂载 ---
@@ -76,8 +77,6 @@ uci commit system
 [ -f /usr/share/v2ray/geoip.dat ] && ln -sf /usr/share/v2ray/geoip.dat /usr/share/xray/geoip.dat
 [ -f /usr/share/v2ray/geosite.dat ] && ln -sf /usr/share/v2ray/geosite.dat /usr/share/xray/geosite.dat
 
-sed -i '/firewall_driver/c\firewall_driver = "nftables"' /etc/containers/containers.conf
-sed -i '/^graphroot/c\graphroot = "/mnt/mmcblk2p4/containers/storage"' /etc/containers/storage.conf
 
 # --- Flag packages (禁止更新) ---
 opkg flag hold luci-app-firewall

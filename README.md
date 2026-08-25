@@ -1,28 +1,26 @@
-# OpenWrt N1 — PassWall2 + Nikki slim build
+# OpenWrt N1 — PassWall2 26.7.16 + Nikki + MosDNS + Bandix
 
 基于 `ffuqiangg/build_openwrt` 的 GitHub Actions 编译工程，目标设备为斐讯 N1 / S905D。
 
-## 定制目标
+## 当前定制目标
 
-- 服务插件只保留：`luci-app-passwall2`、`luci-app-nikki`。
-- Nikki 选择 `mihomo-meta`，移除 `mihomo-alpha`。
-- 删除/禁用无用服务、网络存储、VPN 和代理旧插件：OpenClash、SSR Plus、PassWall v1、Momo、HomeProxy、MosDNS、AdGuardHome、Alist/OpenList、Samba/NFS/ksmbd/vsftpd、ZeroTier、OpenVPN、WireGuard、StrongSwan/IPSec、UPnP、v2rayA、Podman、KMS/vlmcsd、DDNS、nlbwmon 等。
-- 保留 N1 固件编译和 Amlogic 打包 workflow。
+- 重新拉取源码编译，不使用 `HiGarfield/cachewrtbuild` 编译缓存 action。
+- PassWall2 固定使用 `OpenWrt-Passwall/openwrt-passwall2` tag `26.7.16-1`，即中文版本 `26.7.16`。
+- PassWall2 使用全核心/完整组件配置：Xray + SingBox、nftables + iptables transparent proxy、Haproxy、Hysteria、NaiveProxy、Shadowsocks Rust Client/Server、ShadowsocksR Libev Client/Server、Simple-Obfs、V2ray-Plugin。
+- Nikki 保留并使用 `mihomo-meta`，禁用 `mihomo-alpha`。
+- 恢复：MosDNS、Bandix。
+- 加入中文 Argon：`luci-theme-argon`、`luci-app-argon-config`、`luci-i18n-argon-config-zh-cn`，默认 LuCI 主题设为 Argon，语言设为中文。
+- 继续禁用无用服务、网络存储、VPN 和旧代理插件：OpenClash、SSR Plus、PassWall v1、Momo、HomeProxy、AdGuardHome、Alist/OpenList、Samba/NFS/ksmbd/vsftpd、ZeroTier、OpenVPN、WireGuard、StrongSwan/IPSec、UPnP、v2rayA、Podman、KMS/vlmcsd、DDNS、nlbwmon、Diskman/Filebrowser 等。
 
 ## 使用
 
-在 GitHub Actions 手动运行需要的 workflow：
-
-- `OpenWrt`：OpenWrt armsr/armv8 rootfs + Amlogic 打包。
-- `ImmortalWrt` / `LEDE` / `iStoreOS`：保留原项目对应编译入口，但配置已套用同样的服务精简策略。
-
-每个 workflow 在编译前会运行：
+在 GitHub Actions 手动运行 `OpenWrt` workflow。编译前会运行：
 
 ```bash
 bash scripts/verify-slim-services.sh
 ```
 
-该检查会阻止被禁用的服务/网络存储/VPN 插件重新进入配置。
+该检查会阻止缓存 action、错误 PassWall2 配置、无用服务/网络存储/VPN 插件重新进入配置。
 
 ## 默认信息
 
@@ -32,4 +30,5 @@ bash scripts/verify-slim-services.sh
 ## 上游
 
 - 原始工程：https://github.com/ffuqiangg/build_openwrt
-- 打包方案：Ophub / amlogic-s9xxx-openwrt 系列
+- PassWall2：https://github.com/OpenWrt-Passwall/openwrt-passwall2
+- PassWall packages：https://github.com/OpenWrt-Passwall/openwrt-passwall-packages

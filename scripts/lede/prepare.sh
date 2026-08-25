@@ -165,13 +165,17 @@ rm -rf ./feeds/packages/net/sing-box
 cp -rf ${otherdir}/imm_pkg_ma/net/sing-box ./feeds/packages/net/sing-box
 p "v2rayA removed for slim Services build"
 rm -rf ./feeds/luci/applications/luci-app-v2raya ./feeds/packages/net/v2raya
-p "Passwall & OpenWrt-momo"
+p "PassWall2 26.7.16 full package set"
 rm -rf ./feeds/luci/applications/luci-app-passwall
 rm -rf ./feeds/packages/net/{chinadns-ng,dns2socks,dns2tcp,geoview,hysteria,microsocks,pdnsd-alt,tcping,trojan,xray-core}
 cp -rf ${otherdir}/openwrt-add/openwrt_helloworld ./package/add/
-rm -rf ./package/add/openwrt_helloworld/{v2ray-geodata,luci-app-ssr-plus,luci-app-passwall}
-sed -i '/select PACKAGE_geoview/{n;s/default n/default y/;}' ./package/add/openwrt_helloworld/luci-app-passwall/Makefile
-sed -i '/#dde2ff/d;/#2c323c/d' ./package/add/openwrt_helloworld/luci-app-passwall/luasrc/view/passwall/global/status.htm
+rm -rf ./package/add/openwrt_helloworld/{v2ray-geodata,luci-app-ssr-plus,luci-app-passwall,luci-app-passwall2}
+rm -rf ./package/add/passwall_packages ./package/add/luci-app-passwall2
+clone main ${passwall_pkg_repo} ./package/add/passwall_packages
+clone 26.7.16-1 ${passwall2_repo} ./package/add/passwall2_26.7.16
+cp -rf ./package/add/passwall2_26.7.16/luci-app-passwall2 ./package/add/luci-app-passwall2
+[ ! -f ./package/add/openwrt_helloworld/luci-app-passwall/Makefile ] || sed -i '/select PACKAGE_geoview/{n;s/default n/default y/;}' ./package/add/openwrt_helloworld/luci-app-passwall/Makefile
+[ ! -f ./package/add/openwrt_helloworld/luci-app-passwall/luasrc/view/passwall/global/status.htm ] || sed -i '/#dde2ff/d;/#2c323c/d' ./package/add/openwrt_helloworld/luci-app-passwall/luasrc/view/passwall/global/status.htm
 p "OpenWrt-nikki"
 rm -rf ./feeds/luci/applications/luci-app-nikki ./feeds/packages/net/nikki
 rm -rf ./package/add/openwrt_helloworld/{mihomo-alpha,mihomo-meta,luci-app-passwall}
@@ -179,14 +183,16 @@ cp -rf ${otherdir}/openwrt-add/OpenWrt-mihomo ./package/add/luci-app-nikki
 rm -rf ./package/add/luci-app-nikki/mihomo-alpha
 sed -i '/mihomo-alpha/d' ./package/add/luci-app-nikki/mihomo-meta/Makefile
 
-p "MosDNS removed for slim Services build"
-rm -rf ./package/add/luci-app-mosdns ./feeds/luci/applications/luci-app-mosdns ./feeds/packages/net/mosdns
+p "MosDNS"
+rm -rf ./feeds/packages/net/{v2ray-geodata,mosdns}
+cp -rf ${otherdir}/openwrt-add/luci-app-mosdns ./package/add/luci-app-mosdns
+cp -rf ${otherdir}/v2ray_geodata ./package/add/v2ray-geodata
 
 p "Nlbw 带宽监控"
 sed -i 's/services/network/g' ./feeds/luci/applications/luci-app-nlbwmon/root/usr/share/luci/menu.d/luci-app-nlbwmon.json
 sed -i 's/services/network/g' ./feeds/luci/applications/luci-app-nlbwmon/htdocs/luci-static/resources/view/nlbw/config.js
-p "Bandix removed for slim Services build"
-rm -rf ./package/add/openwrt-bandix ./package/add/luci-app-bandix
+p "Bandix 流量监控"
+cp -rf ${otherdir}/openwrt-add/{openwrt-bandix,luci-app-bandix} ./package/add/
 p "终端 TTYD"
 sed -i 's/services/system/g' ./feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
 
@@ -220,6 +226,6 @@ find ./ -name *.rej | xargs rm -f
 p "容器内脚本结束"
 
 # Final safety cleanup: no unused service plugin sources in slim Services build.
-rm -rf ./package/add/{luci-app-homeproxy,luci-app-momo,luci-app-mosdns,luci-app-samba4,luci-app-v2raya,luci-app-vlmcsd,luci-app-filebrowser-go,luci-app-bandix,luci-app-podman,luci-app-diskman}
-rm -rf ./feeds/luci/applications/{luci-app-openclash,luci-app-ssr-plus,luci-app-samba4,luci-app-zerotier,luci-app-openvpn,luci-app-wireguard,luci-app-upnp,luci-app-v2raya,luci-app-mosdns,luci-app-ddns,luci-app-nlbwmon}
-rm -rf ./feeds/packages/net/{openvpn,zerotier,mosdns,v2raya,samba4,ksmbd,nfs-kernel-server,wireguard-tools,strongswan}
+rm -rf ./package/add/{luci-app-homeproxy,luci-app-momo,luci-app-samba4,luci-app-v2raya,luci-app-vlmcsd,luci-app-filebrowser-go,luci-app-podman,luci-app-diskman}
+rm -rf ./feeds/luci/applications/{luci-app-openclash,luci-app-ssr-plus,luci-app-samba4,luci-app-zerotier,luci-app-openvpn,luci-app-wireguard,luci-app-upnp,luci-app-v2raya,luci-app-ddns,luci-app-nlbwmon}
+rm -rf ./feeds/packages/net/{openvpn,zerotier,v2raya,samba4,ksmbd,nfs-kernel-server,wireguard-tools,strongswan}

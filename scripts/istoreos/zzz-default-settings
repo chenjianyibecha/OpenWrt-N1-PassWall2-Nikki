@@ -3,6 +3,9 @@
 # 首次启动后执行，进行一些默认设置。运行后会自动删除此脚本。
 #
 
+uci set luci.main.lang='zh_cn'
+uci set luci.main.mediaurlbase='/luci-static/argon'
+uci commit luci
 # --- 时区 ---
 uci set system.@system[0].timezone=CST-8
 uci set system.@system[0].zonename=Asia/Shanghai
@@ -70,8 +73,6 @@ uci commit system
 [ -f /usr/share/v2ray/geoip.dat ] && ln -sf /usr/share/v2ray/geoip.dat /usr/share/xray/geoip.dat
 [ -f /usr/share/v2ray/geosite.dat ] && ln -sf /usr/share/v2ray/geosite.dat /usr/share/xray/geosite.dat
 
-sed -i '/firewall_driver/c\firewall_driver = "nftables"' /etc/containers/containers.conf
-sed -i '/^graphroot/c\graphroot = "/opt/containers/storage"' /etc/containers/storage.conf
 
 # --- Flag packages (禁止更新) ---
 opkg flag hold luci-app-firewall
