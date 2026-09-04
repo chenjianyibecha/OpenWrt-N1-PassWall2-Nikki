@@ -25,6 +25,10 @@ required=(
   CONFIG_PACKAGE_luci-theme-argon=y
   CONFIG_PACKAGE_luci-app-argon-config=y
   CONFIG_PACKAGE_luci-i18n-argon-config-zh-cn=y
+  CONFIG_PACKAGE_luci-app-turboacc=y
+  CONFIG_PACKAGE_luci-app-turboacc_INCLUDE_OFFLOADING=y
+  CONFIG_PACKAGE_luci-app-turboacc_INCLUDE_BBR_CCA=y
+  CONFIG_PACKAGE_luci-app-turboacc_INCLUDE_NFT_FULLCONE=y
 )
 for cfg in scripts/*/config.seed; do
   echo "Checking $cfg"
@@ -46,4 +50,5 @@ if grep -RIn 'HiGarfield/cachewrtbuild' .github/workflows; then
   exit 1
 fi
 grep -RIn 'clone 26.7.16-1.*passwall2_repo' scripts/*/prepare.sh >/dev/null
-echo 'Plugin policy OK: fresh PassWall2 26.7.16 full core + Nikki + MosDNS + Bandix + Argon CN; no cache action.'
+grep -RIn 'add_turboacc.sh' scripts/*/prepare.sh >/dev/null
+echo 'Plugin policy OK: fresh PassWall2 26.7.16 full core + Nikki + MosDNS + Bandix + Argon CN + Turbo Acc; no cache action.'

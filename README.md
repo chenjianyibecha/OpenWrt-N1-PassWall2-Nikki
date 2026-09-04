@@ -9,7 +9,8 @@
 - PassWall2 使用全核心/完整组件配置：Xray + SingBox、nftables transparent proxy（禁用 iptables legacy 透明代理以避免 apk 中 iptables-nft 与 iptables-zz-legacy 冲突）、Haproxy、Hysteria、NaiveProxy、Shadowsocks Rust Client/Server、ShadowsocksR Libev Client/Server、Simple-Obfs、V2ray-Plugin。
 - Nikki 保留并使用 `mihomo-meta`，禁用 `mihomo-alpha`。
 - 恢复：MosDNS、Bandix。
-- 加入中文 Argon：`luci-theme-argon`、`luci-app-argon-config`、`luci-i18n-argon-config-zh-cn`，默认 LuCI 主题设为 Argon，语言设为中文。
+- 保留并启用中文 Argon：`luci-theme-argon`、`luci-app-argon-config`、`luci-i18n-argon-config-zh-cn`，默认 LuCI 主题设为 Argon，语言设为中文。
+- 加入 Turbo Acc 网络加速：`luci-app-turboacc`，启用 Flow Offload、BBR、NFT FULLCONE。
 - 继续禁用无用服务、网络存储、VPN 和旧代理插件：OpenClash、SSR Plus、PassWall v1、Momo、HomeProxy、AdGuardHome、Alist/OpenList、Samba/NFS/ksmbd/vsftpd、ZeroTier、OpenVPN、WireGuard、StrongSwan/IPSec、UPnP、v2rayA、Podman、KMS/vlmcsd、DDNS、nlbwmon、Diskman/Filebrowser 等。
 
 ## 使用

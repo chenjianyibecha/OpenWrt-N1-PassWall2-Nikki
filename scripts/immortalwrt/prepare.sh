@@ -200,6 +200,10 @@ sed -i 's/services/network/g' ./feeds/luci/applications/luci-app-nlbwmon/root/us
 sed -i 's/services/network/g' ./feeds/luci/applications/luci-app-nlbwmon/htdocs/luci-static/resources/view/nlbw/config.js
 p "Bandix 流量监控"
 cp -rf ${otherdir}/openwrt-add/{openwrt-bandix,luci-app-bandix} ./package/add/
+p "Turbo Acc 网络加速"
+rm -rf ./package/turboacc ./package/add/turboacc ./package/add/luci-app-turboacc ./package/add/nft-fullcone ./package/add/shortcut-fe
+curl -fsSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turboacc.sh -o /tmp/add_turboacc.sh
+bash /tmp/add_turboacc.sh
 p "Samba4 网络共享"
 sed -i 's/nas/services/g' ./feeds/luci/applications/luci-app-samba4/root/usr/share/luci/menu.d/luci-app-samba4.json
 p "硬盘休眠"
